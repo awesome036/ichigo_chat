@@ -1,3 +1,3 @@
-# chat 1 on 1
+# ichigo.chat
 
 ## 制作中
