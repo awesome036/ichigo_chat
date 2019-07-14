@@ -1,0 +1,49 @@
+version: '2'
+services:
+  webserver:
+    build: node
+    image: node-express-dev:1.0
+    container_name: node
+    tty: true
+    volumes:
+      - ./node/app:/app
+    ports:
+      - "3000:3000"
+    links:
+      - redis
+      - mysql
+  
+  redis:
+    image: redis:3.0.5
+    container_name: "noderedis"
+    command: redis-server --requirepass GVMASCaN8Sp2zjdBsX6R6mCRa2HJTKgx-H6L_M85S8fBHHF-iM9p2eTYniTiCyGx
+    ports:
+      - "6379:6379"
+
+  mysql:
+    build: ./dockerMysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes_from:
+      - data
+  
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=mysql
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    links:
+      - mysql
+    ports:
+      - 8800:80
+    volumes:
+      - "./phpmyadmin/sessions:/sessions"
+
+  data:
+    image: busybox:1
+    volumes:
+        - ./mysql/data:/var/lib/mysql

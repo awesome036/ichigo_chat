@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ICHIGO.chat</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta name="msapplication-TileColor" content="#ffc40d">
+	<meta name="theme-color" content="#ffffff">
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link rel="manifest" href="/manifest.json">
+	<link rel="apple-touch-icon" sizes="180x180" href="/images/icon/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/images/icon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/images/icon/favicon-16x16.png">
+	<link rel="mask-icon" href="/images/icon/safari-pinned-tab.svg" color="#5bbad5">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+	<div id="topWrapper">
+
+		<h1 id="mainTitle">ICHIGO.chat</h1>
+
+		<div class="tabAreaWrapper">
+			<div class="tabArea">
+	
+				<input id="loginTab" type="radio" name="tab_item" checked>
+				<label class="tab_item leftTab" for="loginTab">ログイン</label>
+				<input id="registerTab" type="radio" name="tab_item">
+				<label class="tab_item rightTab" for="registerTab">新規登録</label>
+	
+				<div id="registerArea" class="tabContentBox">
+					<form action="/register" method="post" class="board-form">
+						<p class="label">ID</p>
+						<input type="text" name="user_id" class="input">
+						<p class="label">ユーザー名</p>
+						<input type="text" name="user_name" class="input">
+						<p class="label">パスワード</p>
+						<input type="password" name="password" class="input">
+						<p class="label">パスワード(確認)</p>
+						<input type="password" name="passwordConf" class="input">
+						<p class="label">主な言語</p>
+						<select name="language" class="input">
+							<% if (typeof user !== 'undefined'){ %>
+								<% user.forEach(function (value) { %>
+								<option value="<%= value.language_code %>">
+									<%= value.language_name %>
+								</option>
+								<% }); %>
+							<% } %>
+						</select>
+						<br>
+						<input type="submit" class="submit" value="新規登録"></input>
+					</form>
+				</div>
+		
+				<div id="loginArea" class="tabContentBox">
+					<form action="/login" method="post" class="board-form">
+						<p class="label">ID</p>
+						<input type="text" name="user_id" class="input">
+						<p class="label">パスワード</p>
+						<input type="password" name="password" class="input">
+						<br>
+						<input type="submit" class="submit" value="ログイン">
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<% if (typeof errorMsg !== 'undefined') { %>
+		<div class="errorMsg">
+			<%= errorMsg %>
+		</div>
+		<% } %>
+
+		<% if (typeof successMsg !== 'undefined') { %>
+		<div class="successMsg">
+			<%= successMsg %>
+		</div>
+		<% } %>
+	</div>
+
+</body>
+</html>
