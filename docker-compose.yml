@@ -6,7 +6,7 @@ services:
     container_name: node
     tty: true
     volumes:
-      - ./node/app:/app
+      - ./node/app:/app:cached
     ports:
       - "3000:3000"
     links:
@@ -41,9 +41,9 @@ services:
     ports:
       - 8800:80
     volumes:
-      - "./phpmyadmin/sessions:/sessions"
+      - "./phpmyadmin/sessions:/sessions:cached"
 
   data:
     image: busybox:1
     volumes:
-        - ./mysql/data:/var/lib/mysql
+        - ./mysql/data:/var/lib/mysql:cached
